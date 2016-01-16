@@ -1,0 +1,5 @@
+extends: kanmu/react
+parser: babel-eslint
+globals:
+  $Enum: true
+  ReactElement: true
