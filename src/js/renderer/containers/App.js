@@ -2,11 +2,13 @@ import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {
+  fetchNote,
   fetchNoteTitles,
   postNote
 } from '../actions/note';
 
 const propTypes = {
+  fetchNote: PropTypes.func,
   fetchNoteTitles: PropTypes.func,
   note: PropTypes.object,
   postNote: PropTypes.func
@@ -42,7 +44,14 @@ export default class App extends React.Component {
    */
   render() {
     const notes = this.props.note.noteTitles.map(note => {
-      return <li key={note.id}><p>{note.title}</p></li>;
+      return (
+        <li
+          key={note.id}
+          onClick={() => this.props.fetchNote(note.id)}
+        >
+          <p>{note.title}</p>
+        </li>
+      );
     });
     return (
       <div className="Wrapper">
@@ -73,6 +82,7 @@ function mapStateToProps(state) {
  */
 function mapDispachToProps(dispatch) {
   return {
+    fetchNote: bindActionCreators(fetchNote, dispatch),
     fetchNoteTitles: bindActionCreators(fetchNoteTitles, dispatch),
     postNote: bindActionCreators(postNote, dispatch)
   };
