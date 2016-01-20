@@ -6,7 +6,7 @@ import reaction from 'dacho';
 const noteActionTypes = reaction([
   'FETCH_NOTE_TITLES',
   'POST_NOTE',
-  'POSTING_NOTE',
+  'POSTED_NOTE',
   'RECEIVE_NOTE_TITLES'
 ], 'NOTE/');
 

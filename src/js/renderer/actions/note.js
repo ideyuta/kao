@@ -26,10 +26,10 @@ export function fetchNoteTitles() {
  */
 export function postNote() {
   return dispatch => {
-    dispatch({type: types.POSTING_NOTE});
+    dispatch({type: types.POST_NOTE});
     return dispatch({
       payload: client.postNote(),
-      type: types.POST_NOTE
+      type: types.POSTED_NOTE
     });
   };
 }
