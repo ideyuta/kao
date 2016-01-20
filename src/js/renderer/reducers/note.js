@@ -12,16 +12,28 @@ import types from '../constants/noteActionTypes';
  */
 export default function note(state = {
   isFetching: false,
+  isNoteFetching: false,
   isPosting: false,
-  noteTitles: []
+  noteTitles: [],
+  notes: {}
 }, action) {
   switch (action.type) {
+  case types.FETCH_NOTE:
+    return Object.assign({}, state, {isNoteFetching: true});
   case types.FETCH_NOTE_TITLES:
     return Object.assign({}, state, {isFetching: true});
   case types.POST_NOTE:
     return Object.assign({}, state, {isPosting: true});
   case types.POSTED_NOTE:
     return Object.assign({}, state, {isPosting: false});
+  case types.RECEIVE_NOTE: {
+    const notes = Object.assign({}, state.notes);
+    notes[action.payload.id] = action.payload;
+    return Object.assign({}, state, {
+      isNoteFetching: false,
+      notes
+    });
+  }
   case types.RECEIVE_NOTE_TITLES:
     if (action.error) {
       return Object.assign({}, state, {isFetching: false});
