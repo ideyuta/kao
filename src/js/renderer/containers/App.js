@@ -6,6 +6,7 @@ import {
   fetchNoteTitles,
   postNote
 } from '../actions/note';
+import NoteListView from '../components/NoteListView';
 
 const propTypes = {
   fetchNote: PropTypes.func,
@@ -43,20 +44,13 @@ export default class App extends React.Component {
    * @return {ReactElement}
    */
   render() {
-    const notes = this.props.note.noteTitles.map(note => {
-      return (
-        <li
-          key={note.id}
-          onClick={() => this.props.fetchNote(note.id)}
-        >
-          <p>{note.title}</p>
-        </li>
-      );
-    });
     return (
       <div className="Wrapper">
-        <ul>{notes}</ul>
         <button onClick={this.props.postNote}>Add Post</button>
+        <NoteListView
+          fetchNote={this.props.fetchNote}
+          note={this.props.note}
+        />
       </div>
     );
   }
