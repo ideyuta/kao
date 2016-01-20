@@ -6,6 +6,24 @@ import request from 'superagent';
 export default class KaonashiClient {
 
   /**
+   * Get Note
+   *
+   * @param {string} id - note id
+   * @return {Promise<Object>}
+   */
+  getNote(id) {
+    return new Promise((resolve, reject) => {
+      request.get(`http://localhost:8080/note/${id}`)
+        .end((err, res) => {
+          if (err) {
+            return reject(err);
+          }
+          resolve(res.body.data);
+        });
+    });
+  }
+
+  /**
    * Get Note Titles
    *
    * @return {Promise<Object>}
