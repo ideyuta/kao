@@ -5,6 +5,22 @@ const client = new KaonashiClient();
 
 
 /**
+ * Fetch Note
+ *
+ * @param {string} id - note id
+ * @return {Function}
+ */
+export function fetchNote(id) {
+  return dispatch => {
+    dispatch({type: types.FETCH_NOTE});
+    return dispatch({
+      payload: client.getNote(id),
+      type: types.RECEIVE_NOTE
+    });
+  };
+}
+
+/**
  * Fetch Note Title List
  *
  * @return {Function}
