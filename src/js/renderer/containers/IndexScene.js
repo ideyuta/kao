@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {
-  fetchNote,
   fetchNoteTitles,
   postNote
 } from '../actions/note';
@@ -10,7 +9,6 @@ import NoteListView from '../components/NoteListView';
 
 const propTypes = {
   children: PropTypes.any,
-  fetchNote: PropTypes.func,
   fetchNoteTitles: PropTypes.func,
   note: PropTypes.object,
   postNote: PropTypes.func
@@ -48,10 +46,7 @@ class IndexScene extends React.Component {
     return (
       <div className="Wrapper">
         <button onClick={this.props.postNote}>Add Post</button>
-        <NoteListView
-          fetchNote={this.props.fetchNote}
-          note={this.props.note}
-        />
+        <NoteListView note={this.props.note} />
         {this.props.children}
       </div>
     );
@@ -78,7 +73,6 @@ function mapStateToProps(state) {
  */
 function mapDispachToProps(dispatch) {
   return {
-    fetchNote: bindActionCreators(fetchNote, dispatch),
     fetchNoteTitles: bindActionCreators(fetchNoteTitles, dispatch),
     postNote: bindActionCreators(postNote, dispatch)
   };
