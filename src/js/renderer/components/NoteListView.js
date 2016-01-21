@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 const propTypes = {
-  fetchNote: PropTypes.func,
   note: PropTypes.object
 };
 
@@ -18,11 +18,10 @@ export default class NoteListView extends React.Component {
   render() {
     const notes = this.props.note.noteTitles.map(note => {
       return (
-        <li
-          key={note.id}
-          onClick={() => this.props.fetchNote(note.id)}
-        >
-          <p>{note.title}</p>
+        <li key={note.id}>
+          <Link to={`/note/${note.id}`}>
+            <p>{note.title}</p>
+          </Link>
         </li>
       );
     });
