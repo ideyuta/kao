@@ -34,7 +34,7 @@ export default class NoteScene extends React.Component {
       return <div><p>Loading...</p></div>;
     }
     return (
-      <div className="Note">
+      <div className="NoteView">
         <p>{`Note:${this.props.note.id}`}</p>
         <p>{this.props.note.body}</p>
       </div>
