@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import {fetchNote} from '../actions/note';
 
 const propTypes = {
@@ -35,6 +36,7 @@ export default class NoteScene extends React.Component {
     }
     return (
       <div className="NoteView">
+        <Link to="/"><p>Back</p></Link>
         <p>{`Note:${this.props.note.id}`}</p>
         <p>{this.props.note.body}</p>
       </div>
