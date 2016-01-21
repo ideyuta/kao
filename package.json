@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "author": "ideyuta <ide.yuta@gmail.com>",
   "dependencies": {
+    "classnames": "^2.2.3",
     "dacho": "^1.0.0",
     "history": "^1.17.0",
     "normalize.css": "^3.0.3",
