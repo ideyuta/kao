@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import classNames from 'classnames';
 import {
   fetchNoteTitles,
   postNote
@@ -43,11 +44,14 @@ class IndexScene extends React.Component {
    * @return {ReactElement}
    */
   render() {
+    const {children} = this.props;
     return (
       <div className="Wrapper">
-        <button onClick={this.props.postNote}>Add Post</button>
-        <NoteListView note={this.props.note} />
-        {this.props.children}
+        <div className={classNames('IndexView', {isScrollFixed: children})}>
+          <button onClick={this.props.postNote}>Add Post</button>
+          <NoteListView note={this.props.note} />
+        </div>
+        {children}
       </div>
     );
   }
