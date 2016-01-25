@@ -3,6 +3,21 @@ import types from '../constants/noteActionTypes';
 
 const client = new KaonashiClient();
 
+/**
+ * Delete Note
+ *
+ * @param {string} id - note id
+ * @return {Function}
+ */
+export function deleteNote(id) {
+  return dispatch => {
+    dispatch({type: types.DELETE_NOTE});
+    return dispatch({
+      payload: client.deleteNote(id),
+      type: types.DELETED_NOTE
+    });
+  };
+}
 
 /**
  * Fetch Note
