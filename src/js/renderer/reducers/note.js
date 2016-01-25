@@ -4,6 +4,7 @@ import types from '../constants/noteActionTypes';
  * Note Store
  *
  * @param {Object} state - State of note
+ * @param {boolean} state.isDeleting - note is deleting
  * @param {boolean} state.isFetching - note titles is fetching
  * @param {boolean} state.isPosting - note is Posting
  * @param {Object[]} state.noteTitles - note title list
@@ -11,6 +12,7 @@ import types from '../constants/noteActionTypes';
  * @return {Object}
  */
 export default function note(state = {
+  isDeleting: false,
   isFetching: false,
   isNoteFetching: false,
   isPosting: false,
@@ -18,6 +20,18 @@ export default function note(state = {
   notes: {}
 }, action) {
   switch (action.type) {
+  case types.DELETE_NOTE:
+    return Object.assign({}, state, {isDeleting: true});
+  case types.DELETED_NOTE: {
+    const notes = Object.assign({}, state.notes);
+    const noteTitles = state.noteTitles.filter(n => n.id !== action.payload.id);
+    delete notes[action.payload.id];
+    return Object.assign({}, state, {
+      isDeleting: false,
+      noteTitles,
+      notes
+    });
+  }
   case types.FETCH_NOTE:
     return Object.assign({}, state, {isNoteFetching: true});
   case types.FETCH_NOTE_TITLES:
