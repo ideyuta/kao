@@ -6,6 +6,24 @@ import request from 'superagent';
 export default class KaonashiClient {
 
   /**
+   * Delete Note
+   *
+   * @param {string} id - note id
+   * @return {Promise<Object>}
+   */
+  deleteNote(id) {
+    return new Promise((resolve, reject) => {
+      request.delete(`http://localhost:8080/note/${id}`)
+        .end(err => {
+          if (err) {
+            return reject(err);
+          }
+          resolve({id});
+        });
+    });
+  }
+
+  /**
    * Get Note
    *
    * @param {string} id - note id
