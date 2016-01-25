@@ -1,14 +1,20 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import {fetchNote} from '../actions/note';
+import {Link, PropTypes} from 'react-router';
+import {deleteNote, fetchNote} from '../actions/note';
+
+const contextTypes = {
+  history: PropTypes.history
+};
 
 const propTypes = {
-  fetchNote: PropTypes.func,
-  note: PropTypes.object,
-  routeParams: PropTypes.object
+  deleteNote: React.PropTypes.func,
+  fetchNote: React.PropTypes.func,
+  note: React.PropTypes.object,
+  routeParams: React.PropTypes.object
 };
+
 
 /**
  * NoteScene Container
@@ -31,19 +37,28 @@ export default class NoteScene extends React.Component {
    * @return {ReactElement}
    */
   render() {
-    if (!this.props.note) {
+    const {note} = this.props;
+    if (!note) {
       return <div><p>Loading...</p></div>;
     }
     return (
       <div className="NoteView">
         <Link to="/"><p>Back</p></Link>
-        <p>{`Note:${this.props.note.id}`}</p>
-        <p>{this.props.note.body}</p>
+        <p>{`Note:${note.id}`}</p>
+        <p>{note.body}</p>
+        <button onClick={() => {
+          this.props.deleteNote(note.id);
+          this.context.history.pushState(null, '/');
+        }}
+        >
+          <Link to="/">Delete</Link>
+        </button>
       </div>
     );
   }
 }
 
+NoteScene.contextTypes = contextTypes;
 NoteScene.propTypes = propTypes;
 
 /**
@@ -64,7 +79,10 @@ function mapStateToProps(state, props) {
  * @return {Object}
  */
 function mapDispachToProps(dispatch) {
-  return {fetchNote: bindActionCreators(fetchNote, dispatch)};
+  return {
+    deleteNote: bindActionCreators(deleteNote, dispatch),
+    fetchNote: bindActionCreators(fetchNote, dispatch)
+  };
 }
 
 export default connect(mapStateToProps, mapDispachToProps)(NoteScene);
