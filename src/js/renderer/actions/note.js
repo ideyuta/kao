@@ -59,7 +59,7 @@ export function postNote() {
   return dispatch => {
     dispatch({type: types.POST_NOTE});
     return dispatch({
-      payload: client.postNote(),
+      payload: client.postNote('body', 'title'),
       type: types.POSTED_NOTE
     });
   };
