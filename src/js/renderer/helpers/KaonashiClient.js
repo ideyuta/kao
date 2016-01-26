@@ -61,12 +61,14 @@ export default class KaonashiClient {
   /**
    * Post Note
    *
+   * @param {string} body - body
+   * @param {string} title - title
    * @return {Promise<Object>}
    */
-  postNote() {
+  postNote(body, title) {
     return new Promise((resolve, reject) => {
       request.post('http://localhost:8080/note')
-        .send({data: {body: 'note body', title: 'POST'}})
+        .send({data: {body, title}})
         .set('Accept', 'application/json')
         .set('Content-type', 'application/json')
         .end(err => {
