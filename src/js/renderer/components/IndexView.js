@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import classNames from 'classnames';
+import InlineNewPostEditor from './InlineNewPostEditor';
 import NoteListView from './NoteListView';
 
 const propTypes = {
@@ -21,7 +22,9 @@ export default class IndexView extends React.Component {
   render() {
     return (
       <div className={classNames('IndexView', {isScrollFixed: this.props.isScrollFixed})}>
-        <button onClick={this.props.postNote}>Add Post</button>
+        <InlineNewPostEditor
+          postNote={this.props.postNote}
+        />
         <NoteListView note={this.props.note} />
       </div>
     );
